@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/static/style/style.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+
+    <!-- <link rel="stylesheet" href="main.css"> do we need this? idk-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+
+    <title>Typo ¿</title>
+
+</head>
+
+<body style="background-image: url('/static/img/typobackground.PNG'); background-repeat: no-repeat; background-attachment: fixed;  background-size: 100% 100%; ">
+
+
+<div class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light py-0 ">
+        <div class="container-fluid">
+            <a class="navbar-brand py-0" href="#"><img src="/static/img/typo%20logo.png" alt="Typo Logo"
+                                                       height="100"></a>
+            <button class="bg-warning navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <input type="hidden" name="id" value="{{ session.logged_in }}" id="session_log">
+                <input type="hidden" name="id" value="{{ session.id }}" id="user_id">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="navitm" href="{{ url_for('show_index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navitm" href="{{ url_for('profile') }}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navitm" href="{{ url_for('leaderBoard') }}">Leaderboard</a>
+                    </li>
+                    {% if session.logged_in %}
+                        {% if session.isadmin %}
+                            <li class="nav-item">
+                                <a class="navitm " href="{{ url_for('add_text') }}">Admin(add text)</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="navitm" href="{{ url_for('logout') }}"><span class="fas fa-sign-in-alt"></span>
+                                Sign out</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="navitm" href="{{ url_for('profile') }}"><span class="fas fa-user"></span>
+                                {{ session.username }}</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="navitm" href="{{ url_for('registerpage') }}"><span class="fas fa-user"></span>
+                                Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="navitm " href="{{ url_for('loginpage') }}"><span
+                                    class="fas fa-sign-in-alt"></span>
+                                Sign In</a>
+                        </li>
+                    {% endif %}
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+</div>
+
+
+<script type="text/javascript" src="{{ url_for('static', filename='typo.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+        integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
